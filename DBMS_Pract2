@@ -1,0 +1,222 @@
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -h localhost -u root -p
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.34 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database ecommerce;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> create table customer(cid int, name varchar(20), address varchar(20));
+ERROR 1046 (3D000): No database selected
+mysql> use ecommerce;
+Database changed
+mysql> create table customer(cid int, name varchar(20), address varchar(20));
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> desc customer;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| cid     | int         | YES  |     | NULL    |       |
+| name    | varchar(20) | YES  |     | NULL    |       |
+| address | varchar(20) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.04 sec)
+
+mysql> create table product(pid int, productname(20), price int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(20), price int)' at line 1
+mysql> create table product(pid int, productname varchar(20), price int);
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> desc product;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| pid         | int         | YES  |     | NULL    |       |
+| productname | varchar(20) | YES  |     | NULL    |       |
+| price       | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table customer add primary key (cid);
+Query OK, 0 rows affected (0.18 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc customer;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| cid     | int         | NO   | PRI | NULL    |       |
+| name    | varchar(20) | YES  |     | NULL    |       |
+| address | varchar(20) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table purchase (purchaseid int, po int, category varchar(200));
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> desc table purchase;
++----+-------------+----------+------------+------+---------------+------+---------+------+------+----------+-------+
+| id | select_type | table    | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra |
++----+-------------+----------+------------+------+---------------+------+---------+------+------+----------+-------+
+|  1 | SIMPLE      | purchase | NULL       | ALL  | NULL          | NULL | NULL    | NULL |    1 |   100.00 | NULL  |
++----+-------------+----------+------------+------+---------------+------+---------+------+------+----------+-------+
+1 row in set, 1 warning (0.01 sec)
+
+mysql> create table purchase(purchaseid int, po int, category varchar(200));
+ERROR 1050 (42S01): Table 'purchase' already exists
+mysql> desc table purchase;
++----+-------------+----------+------------+------+---------------+------+---------+------+------+----------+-------+
+| id | select_type | table    | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra |
++----+-------------+----------+------------+------+---------------+------+---------+------+------+----------+-------+
+|  1 | SIMPLE      | purchase | NULL       | ALL  | NULL          | NULL | NULL    | NULL |    1 |   100.00 | NULL  |
++----+-------------+----------+------------+------+---------------+------+---------+------+------+----------+-------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> alter table purchase add primary key(purchaseid);
+Query OK, 0 rows affected (0.16 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc purchase;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| purchaseid | int          | NO   | PRI | NULL    |       |
+| po         | int          | YES  |     | NULL    |       |
+| category   | varchar(200) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create user 'tony'@'localhost' identified by 'tony123';
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> grant select, insert, update on ecommerce.customer to 'tony'@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> grant select, insert, update on ecommerce.purchase to 'tony'@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin_password';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> alter table customer add constraint chk check (cid>100);
+ERROR 3819 (HY000): Check constraint 'chk' is violated.
+mysql> ALTER TABLE customer ADD CONSTRAINT chk CHECK (cid > 100);
+ERROR 3819 (HY000): Check constraint 'chk' is violated.
+mysql> alter table customer modify cid int check (cid>100);
+ERROR 3819 (HY000): Check constraint 'customer_chk_1' is violated.
+mysql> alter table customer add constraint chk check (cid<100);
+Query OK, 1 row affected (0.15 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> alter table customer add constraint chk check (cid>100);
+ERROR 3822 (HY000): Duplicate check constraint name 'chk'.
+mysql> alter table customer modify cid int check (cid<100);
+Query OK, 1 row affected (0.28 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> alter table customer drop constraint chk;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table customer drop primary key;
+Query OK, 1 row affected (0.15 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> insert into customer values(2, 'Chris', 'Mumbai');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> update customer set address='New York' where name='Chris';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql>
+
+user created
+Microsoft Windows [Version 10.0.19045.6093]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u tony -p
+Enter password: *******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.34 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use ecommerce
+Database changed
+mysql> insert into customer(cid, name, address);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> insert into customer(cid, name, address)
+    -> values(01, 'tony', 'pune');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> desc customer;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| cid     | int         | NO   | PRI | NULL    |       |
+| name    | varchar(20) | YES  |     | NULL    |       |
+| address | varchar(20) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customer;
++-----+------+---------+
+| cid | name | address |
++-----+------+---------+
+|   1 | tony | pune    |
++-----+------+---------+
+1 row in set (0.00 sec)
+
+mysql> update customer set cid = 101 where cid = 1
+    -> set cid = 101
+    -> where cid = 1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'set cid = 101
+where cid = 1' at line 2
+mysql> update customer
+    -> set cid = 101
+    -> where cid = 1;
+ERROR 3819 (HY000): Check constraint 'chk' is violated.
+mysql> desc customer
+    -> desc customer;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'desc customer' at line 2
+mysql> desc customer;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| cid     | int         | NO   | PRI | NULL    |       |
+| name    | varchar(20) | YES  |     | NULL    |       |
+| address | varchar(20) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customer
+    -> /c
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '/c' at line 2
+mysql> select * from customer;
++-----+------+---------+
+| cid | name | address |
++-----+------+---------+
+|   1 | tony | pune    |
++-----+------+---------+
+1 row in set (0.00 sec)
+
+mysql>
