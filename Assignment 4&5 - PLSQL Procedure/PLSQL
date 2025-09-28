@@ -1,0 +1,41 @@
+declare 
+  r number(3);
+  bn varchar2(20);
+  amt number(6,2) := 0;
+  rd date;
+  di date;
+  v_days number(3);
+begin
+  r := &r;
+  bn := '&bn';
+
+  select issuedate 
+  into di 
+  from Borrower 
+  where rollno = r and nameofbook = bn and status='I';
+
+  rd := sysdate;
+  v_days := rd - di;
+
+  if v_days <= 15 then
+    dbms_output.put_line('No Fine');
+  elsif v_days between 16 and 30 then 
+    amt := v_days * 5;
+  else
+    amt := v_days * 50;
+  end if;
+
+  update Borrower set status='R' where rollno=r and nameofbook=bn;
+
+  if amt > 0 then
+    insert into Fine (rollno, rdate, amount) values(r, rd, amt);
+    dbms_output.put_line('Fine imposed: ' || amt);
+  end if;
+
+  dbms_output.put_line('Book returned successfully. Days kept: ' || v_days);
+
+exception
+  when no_data_found then
+    dbms_output.put_line('No record found or already returned.');
+end;
+/
