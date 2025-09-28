@@ -1,0 +1,11 @@
+declare
+ed int;
+en varchar(20);
+sal float;
+dept varchar(20);
+begin
+ed:=&ed;
+select eid, name, salary, dept into ed, en, sal, dept from employee1 where ed=ed;
+dbms_output.put_line(ed||'  '||en||'  ' ||sal||'  '||dept);
+end;
+/
