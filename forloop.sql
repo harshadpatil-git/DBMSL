@@ -1,0 +1,9 @@
+declare
+rec employee1%rowtype;
+cursor c1 is select * from employee1;
+begin
+for rec in c1 loop
+dbms_output.put_line(rec.eid||'  '||rec.name||'  '||rec.salary||'  '||rec.dept);
+end loop;
+end;
+/
