@@ -1,0 +1,16 @@
+declare
+ed int;
+en varchar(20);
+sal float;
+dept varchar(20);
+cursor c1 is select * from employee1;
+begin
+open c1;
+loop
+fetch c1 into ed, en, sal, dept;
+exit when c1%NOTFOUND;
+dbms_output.put_line(ed||'  '||en||'  ' ||sal||'  '||dept);
+end loop;
+close c1;
+end;
+/
