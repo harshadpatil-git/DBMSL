@@ -1,0 +1,212 @@
+SQL*Plus: Release 21.0.0.0.0 - Production on Sun Sep 28 21:58:26 2025
+Version 21.3.0.0.0
+
+Copyright (c) 1982, 2021, Oracle.  All rights reserved.
+
+Enter user-name: system
+Enter password:
+Last Successful login time: Sun Sep 28 2025 15:28:56 +05:30
+
+Connected to:
+Oracle Database 21c Express Edition Release 21.0.0.0.0 - Production
+Version 21.3.0.0.0
+
+SQL> create table borrower(rollno number(3),name varchar(20),nameofbook varchar(20),issuedate date,status char(1));
+
+Table created.
+
+SQL> desc borrower;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLLNO                                             NUMBER(3)
+ NAME                                               VARCHAR2(20)
+ NAMEOFBOOK                                         VARCHAR2(20)
+ ISSUEDATE                                          DATE
+ STATUS                                             CHAR(1)
+
+SQL> alter table borrower add primary key(rollno);
+
+Table altered.
+SQL> insert into borrower (rollno,name,nameofbook,issuedate,status) values(&rollno,'&name','&nameofbook','&issuedate','&status');
+Enter value for rollno: 100
+Enter value for name: Harshad
+Enter value for nameofbook: DBMS
+Enter value for issuedate: 28-sep-25
+Enter value for status: I
+old   1: insert into borrower (rollno,name,nameofbook,issuedate,status) values(&rollno,'&name','&nameofbook','&issuedate','&status')
+new   1: insert into borrower (rollno,name,nameofbook,issuedate,status) values(100,'Harshad','DBMS','28-sep-25','I')
+
+1 row created.
+
+SQL> insert into borrower (rollno,name,nameofbook,issuedate,status) values(&rollno,'&name','&nameofbook','&issuedate','&status');
+Enter value for rollno: 101
+Enter value for name: Samay
+Enter value for nameofbook: CNS
+Enter value for issuedate: 29-sep-25
+Enter value for status: I
+old   1: insert into borrower (rollno,name,nameofbook,issuedate,status) values(&rollno,'&name','&nameofbook','&issuedate','&status')
+new   1: insert into borrower (rollno,name,nameofbook,issuedate,status) values(101,'Samay','CNS','29-sep-25','I')
+
+1 row created.
+
+SQL> insert into borrower (rollno,name,nameofbook,issuedate,status) values(&rollno,'&name','&nameofbook','&issuedate','&status');
+Enter value for rollno: 102
+Enter value for name: Tanmay
+Enter value for nameofbook: DSA
+Enter value for issuedate: 22-aug-25
+Enter value for status: I
+old   1: insert into borrower (rollno,name,nameofbook,issuedate,status) values(&rollno,'&name','&nameofbook','&issuedate','&status')
+new   1: insert into borrower (rollno,name,nameofbook,issuedate,status) values(102,'Tanmay','DSA','22-aug-25','I')
+
+1 row created.
+
+SQL> insert into borrower (rollno,name,nameofbook,issuedate,status) values(&rollno,'&name','&nameofbook','&issuedate','&status');
+Enter value for rollno: 103
+Enter value for name: Zakir
+Enter value for nameofbook: SPOS
+Enter value for issuedate: 23-aug-25
+Enter value for status: I
+old   1: insert into borrower (rollno,name,nameofbook,issuedate,status) values(&rollno,'&name','&nameofbook','&issuedate','&status')
+new   1: insert into borrower (rollno,name,nameofbook,issuedate,status) values(103,'Zakir','SPOS','23-aug-25','I')
+
+1 row created.
+
+SQL> insert into borrower (rollno,name,nameofbook,issuedate,status) values(&rollno,'&name','&nameofbook','&issuedate','&status');
+Enter value for rollno: 104
+Enter value for name: Rohan
+Enter value for nameofbook: CGR
+Enter value for issuedate: 01-jul-25
+Enter value for status: I
+old   1: insert into borrower (rollno,name,nameofbook,issuedate,status) values(&rollno,'&name','&nameofbook','&issuedate','&status')
+new   1: insert into borrower (rollno,name,nameofbook,issuedate,status) values(104,'Rohan','CGR','01-jul-25','I')
+
+1 row created.
+
+SQL> insert into borrower (rollno,name,nameofbook,issuedate,status) values(&rollno,'&name','&nameofbook','&issuedate','&status');
+Enter value for rollno: 105
+Enter value for name: Kullu
+Enter value for nameofbook: OOP
+Enter value for issuedate: 09-aug-25
+Enter value for status: I
+old   1: insert into borrower (rollno,name,nameofbook,issuedate,status) values(&rollno,'&name','&nameofbook','&issuedate','&status')
+new   1: insert into borrower (rollno,name,nameofbook,issuedate,status) values(105,'Kullu','OOP','09-aug-25','I')
+
+1 row created.
+
+SQL> select * from borrower;
+
+    ROLLNO NAME                 NAMEOFBOOK           ISSUEDATE S
+---------- -------------------- -------------------- --------- -
+       100 Harshad              DBMS                 28-SEP-25 I
+       101 Samay                CNS                  29-SEP-25 I
+       102 Tanmay               DSA                  22-AUG-25 I
+       103 Zakir                SPOS                 23-AUG-25 I
+       104 Rohan                CGR                  01-JUL-25 I
+       105 Kullu                OOP                  09-AUG-25 I
+
+6 rows selected.
+
+SQL> create table fine(rollno number(3),rdate date,amount number(6,2));
+
+Table created.
+
+SQL> insert into fine (rollno,rdate,amount) values (&rollno,'&rdate','&amount');
+Enter value for rollno: 101
+Enter value for rdate: 10-oct-25
+Enter value for amount: 499
+old   1: insert into fine (rollno,rdate,amount) values (&rollno,'&rdate','&amount')
+new   1: insert into fine (rollno,rdate,amount) values (101,'10-oct-25','499')
+
+1 row created.
+
+SQL> insert into fine (rollno,rdate,amount) values (&rollno,'&rdate','&amount');
+Enter value for rollno: 100
+Enter value for rdate: 09-oct-25
+Enter value for amount: 399
+old   1: insert into fine (rollno,rdate,amount) values (&rollno,'&rdate','&amount')
+new   1: insert into fine (rollno,rdate,amount) values (100,'09-oct-25','399')
+
+1 row created.
+
+SQL> insert into fine (rollno,rdate,amount) values (&rollno,'&rdate','&amount');
+Enter value for rollno: 102
+Enter value for rdate: 12-sep-25
+Enter value for amount: 599
+old   1: insert into fine (rollno,rdate,amount) values (&rollno,'&rdate','&amount')
+new   1: insert into fine (rollno,rdate,amount) values (102,'12-sep-25','599')
+
+1 row created.
+
+SQL> insert into fine (rollno,rdate,amount) values (&rollno,'&rdate','&amount');
+Enter value for rollno: 103
+Enter value for rdate: 15-sep-25
+Enter value for amount: 599
+old   1: insert into fine (rollno,rdate,amount) values (&rollno,'&rdate','&amount')
+new   1: insert into fine (rollno,rdate,amount) values (103,'15-sep-25','599')
+
+1 row created.
+
+SQL> insert into fine (rollno,rdate,amount) values (&rollno,'&rdate','&amount');
+Enter value for rollno: 104
+Enter value for rdate: 20-jul-25
+Enter value for amount: 299
+old   1: insert into fine (rollno,rdate,amount) values (&rollno,'&rdate','&amount')
+new   1: insert into fine (rollno,rdate,amount) values (104,'20-jul-25','299')
+
+1 row created.
+
+SQL> insert into fine (rollno,rdate,amount) values (&rollno,'&rdate','&amount');
+Enter value for rollno: 105
+Enter value for rdate: 25-aug-25
+Enter value for amount: 699
+old   1: insert into fine (rollno,rdate,amount) values (&rollno,'&rdate','&amount')
+new   1: insert into fine (rollno,rdate,amount) values (105,'25-aug-25','699')
+
+1 row created.
+
+SQL> select * from fine;
+
+    ROLLNO RDATE         AMOUNT
+---------- --------- ----------
+       101 10-OCT-25        499
+       100 09-OCT-25        399
+       102 12-SEP-25        599
+       103 15-SEP-25        599
+       104 20-JUL-25        299
+       105 25-AUG-25        699
+
+6 rows selected.
+SQL> @"C:\Users\Harshad\Desktop\New folder (3)\Prac5.2.sql"
+Enter value for r: 104
+old   9:   r := &r;
+new   9:   r := 104;
+Enter value for bn: CGR
+old  10:   bn := '&bn';
+new  10:   bn := 'CGR';
+Fine imposed: 4500
+Book returned successfully. Days kept: 90
+
+PL/SQL procedure successfully completed.
+
+SQL> @"C:\Users\Harshad\Desktop\New folder (3)\Prac5.2.sql"
+Enter value for r: 100
+old   9:   r := &r;
+new   9:   r := 100;
+Enter value for bn: DBMS
+old  10:   bn := '&bn';
+new  10:   bn := 'DBMS';
+No record found or already returned.
+
+PL/SQL procedure successfully completed.
+
+SQL> @"C:\Users\Harshad\Desktop\New folder (3)\Prac5.2.sql"
+Enter value for r: 103
+old   9:   r := &r;
+new   9:   r := 103;
+Enter value for bn: SPOS
+old  10:   bn := '&bn';
+new  10:   bn := 'SPOS';
+Fine imposed: 1850
+Book returned successfully. Days kept: 37
+
+PL/SQL procedure successfully completed.
