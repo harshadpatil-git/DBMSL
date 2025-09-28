@@ -1,0 +1,91 @@
+SQL*Plus: Release 21.0.0.0.0 - Production on Sun Sep 28 15:28:52 2025
+Version 21.3.0.0.0
+
+Copyright (c) 1982, 2021, Oracle.  All rights reserved.
+
+Enter user-name: system
+Enter password:
+Last Successful login time: Sun Sep 28 2025 11:52:30 +05:30
+
+Connected to:
+Oracle Database 21c Express Edition Release 21.0.0.0.0 - Production
+Version 21.3.0.0.0
+
+SQL> create table employee1 (eid int, name varchar(20), salary float, dept varchar(20));
+
+Table created.
+
+SQL> insert into employee1 values (101,'Tushar',50000,'CS');
+
+1 row created.
+
+SQL> insert into employee1 values (102,'Ram',60000,'AIDS');
+
+1 row created.
+
+SQL> insert into employee1 values (103,'Kunal',75000,'AIDS');
+
+1 row created.
+
+SQL> select * from employee1;
+
+       EID NAME                     SALARY DEPT
+---------- -------------------- ---------- --------------------
+       101 Tushar                    50000 CS
+       102 Ram                       60000 AIDS
+       103 Kunal                     75000 AIDS
+
+SQL> commit;
+
+Commit complete.
+
+SQL> set serveroutput on
+SQL> @"C:\Users\Harshad\Desktop\New folder (2)\implicit.sql"
+Enter value for ed: 102
+old   7: ed:=&ed;
+new   7: ed:=102;
+declare
+*
+ERROR at line 1:
+ORA-01422: exact fetch returns more than requested number of rows
+ORA-06512: at line 8
+
+SQL> @"C:\Users\Harshad\Desktop\New folder (2)\explicit.sql"
+101  Tushar  50000  CS
+102  Ram  60000  AIDS
+103  Kunal  75000  AIDS
+
+PL/SQL procedure successfully completed.
+
+SQL> @"C:\Users\Harshad\Desktop\New folder (2)\parameterized.sql"
+Enter value for s: 60000
+old   9: open c1(&s);
+new   9: open c1(60000);
+103  Kunal  75000  AIDS
+
+PL/SQL procedure successfully completed.
+
+SQL> @"C:\Users\Harshad\Desktop\New folder (2)\update.sql"
+Enter value for s: 60000
+old   9: open c1(&s);
+new   9: open c1(60000);
+103  Kunal  75000  AIDS
+
+PL/SQL procedure successfully completed.
+
+SQL> @"C:\Users\Harshad\Desktop\New folder (2)\update.sql"
+Enter value for s: 102
+old   9: open c1(&s);
+new   9: open c1(102);
+101  Tushar  50000  CS
+102  Ram  60000  AIDS
+103  Kunal  73000  AIDS
+
+PL/SQL procedure successfully completed.
+
+SQL> @"C:\Users\Harshad\Desktop\New folder (2)\forloop.sql"
+101  Tushar  48000  CS
+102  Ram  58000  AIDS
+103  Kunal  71000  AIDS
+
+PL/SQL procedure successfully completed.
