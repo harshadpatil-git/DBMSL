@@ -1,0 +1,7 @@
+create or replace trigger updatemaster
+before update or delete on library
+for each row
+BEGIN
+insert into library_audit (book_id, title, author) values (:old.book_id, :old.title, :old.author);
+END;
+/
