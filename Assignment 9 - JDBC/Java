@@ -1,0 +1,58 @@
+package abc;
+import java.sql.*;
+import java.util.*;
+public class database {
+public static void main(String[] args) {
+try {
+Class.forName("com.mysql.cj.jdbc.Driver");
+Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/dbms","root","root");
+Statement stm=con.createStatement();
+/*String str="create database dbms";
+stm.executeUpdate(str);
+System.out.println("Database created");*/
+String str="create table product (pid int,pname varchar(20),price int)";
+stm.execute(str);
+System.out.println("Table created");
+}
+catch(Exception e){
+System.out.println(e);
+}
+}
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+package abc;
+import java.sql.*;
+import java.util.*;
+public class database {
+public static void main(String[] args) {
+try {
+Class.forName("com.mysql.cj.jdbc.Driver");
+Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/dbms","root","root");
+Statement stm=con.createStatement();
+Scanner s=new Scanner(System.in);
+/*String str="create database dbms";
+stm.executeUpdate(str);
+System.out.println("Database created");
+String str="create table product (pid int,pname varchar(20),price int)";
+stm.execute(str);
+System.out.println("Table created");*/
+int pid,price;
+String pname;
+System.out.println("Enter PID:");
+pid=s.nextInt();
+System.out.println("Enter Pname:");
+pname=s.next();
+System.out.println("Enter Price:");
+price=s.nextInt();
+String str="insert into product values("+pid+",'"+pname+"',"+price+")";
+stm.execute(str);
+System.out.println("values inserted");
+}
+catch(Exception e){
+System.out.println(e);
+}
+}
+}
