@@ -1,0 +1,198 @@
+SQL*Plus: Release 21.0.0.0.0 - Production on Mon Sep 29 19:29:31 2025
+Version 21.3.0.0.0
+
+Copyright (c) 1982, 2021, Oracle.  All rights reserved.
+
+Enter user-name: system
+Enter password:
+Last Successful login time: Mon Sep 29 2025 19:29:06 +05:30
+
+Connected to:
+Oracle Database 21c Express Edition Release 21.0.0.0.0 - Production
+Version 21.3.0.0.0
+
+SQL> create table library(book_id int, title varchar(20), author varchar(20));
+
+Table created.
+
+SQL> create table library_audit as select * from library;
+
+Table created.
+
+SQL> insert into library (book_id int, title varchar(20), author varchar(20))
+  2  values (101,'DBMS','Harshad');
+insert into library (book_id int, title varchar(20), author varchar(20))
+                             *
+ERROR at line 1:
+ORA-00917: missing comma
+
+
+SQL> insert into library (book_id, title, author) values (101,'DBMS','Harshad');
+
+1 row created.
+
+SQL> insert into library (book_id, title, author) values (102,'CNS','Samay');
+
+1 row created.
+
+SQL> insert into library (book_id, title, author) values (103,'OOP','Tanmay');
+
+1 row created.
+
+SQL> insert into library (book_id, title, author) values (104,'CGR','Zakir');
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> @C:\Users\Harshad\Desktop\trigger2\update.sql
+before update or delete on clientmaster
+                           *
+ERROR at line 2:
+ORA-00942: table or view does not exist
+
+
+SQL> @C:\Users\Harshad\Desktop\trigger2\update.sql
+
+Warning: Trigger created with compilation errors.
+
+SQL> @C:\Users\Harshad\Desktop\trigger2\update.sql
+
+Warning: Trigger created with compilation errors.
+
+SQL> @C:\Users\Harshad\Desktop\trigger2\update.sql
+
+Trigger created.
+
+SQL> select * from library;
+
+   BOOK_ID TITLE                AUTHOR
+---------- -------------------- --------------------
+       101 DBMS                 Harshad
+       102 CNS                  Samay
+       103 OOP                  Tanmay
+       104 CGR                  Zakir
+
+SQL> update library set book_id = 105 where title = 'CGR';
+
+1 row updated.
+
+SQL> select * from library;
+
+   BOOK_ID TITLE                AUTHOR
+---------- -------------------- --------------------
+       101 DBMS                 Harshad
+       102 CNS                  Samay
+       103 OOP                  Tanmay
+       105 CGR                  Zakir
+
+SQL> select * from library_audit;
+
+   BOOK_ID TITLE                AUTHOR
+---------- -------------------- --------------------
+       104 CGR                  Zakir
+
+SQL> delete from library where book_id = 102;
+
+1 row deleted.
+
+SQL> select * from library_audit;
+
+   BOOK_ID TITLE                AUTHOR
+---------- -------------------- --------------------
+       104 CGR                  Zakir
+       102 CNS                  Samay
+
+SQL> commit;
+
+Commit complete.
+
+SQL> @C:\Users\Harshad\Desktop\trigger2\update.sql
+
+Trigger created.
+
+SQL> select * from library;
+
+   BOOK_ID TITLE                AUTHOR
+---------- -------------------- --------------------
+       101 DBMS                 Harshad
+       103 OOP                  Tanmay
+       105 CGR                  Zakir
+
+SQL> create table insertbackup as select * from library;
+
+Table created.
+
+SQL> @C:\Users\Harshad\Desktop\trigger2\after_insert.sql
+create or replace trigger insert
+                          *
+ERROR at line 1:
+ORA-04070: invalid trigger name
+
+
+SQL> @C:\Users\Harshad\Desktop\trigger2\after_insert.sql
+
+Trigger created.
+
+SQL> select * from insertbackup;
+
+   BOOK_ID TITLE                AUTHOR
+---------- -------------------- --------------------
+       101 DBMS                 Harshad
+       103 OOP                  Tanmay
+       105 CGR                  Zakir
+
+SQL> insert into library values(106,'DSA','Rohan');
+
+1 row created.
+
+SQL> select * from library_audit;
+
+   BOOK_ID TITLE                AUTHOR
+---------- -------------------- --------------------
+       104 CGR                  Zakir
+       102 CNS                  Samay
+
+SQL> select * from library;
+
+   BOOK_ID TITLE                AUTHOR
+---------- -------------------- --------------------
+       101 DBMS                 Harshad
+       103 OOP                  Tanmay
+       105 CGR                  Zakir
+       106 DSA                  Rohan
+
+SQL> @C:\Users\Harshad\Desktop\trigger2\stat_insert.sql
+
+Trigger created.
+
+SQL> @C:\Users\Harshad\Desktop\trigger2\stat_update.sql
+
+Trigger created.
+
+SQL> select * from library;
+
+   BOOK_ID TITLE                AUTHOR
+---------- -------------------- --------------------
+       101 DBMS                 Harshad
+       103 OOP                  Tanmay
+       105 CGR                  Zakir
+       106 DSA                  Rohan
+
+SQL> select * from library_audit;
+
+   BOOK_ID TITLE                AUTHOR
+---------- -------------------- --------------------
+       104 CGR                  Zakir
+       102 CNS                  Samay
+
+SQL> select * from insertbackup;
+
+   BOOK_ID TITLE                AUTHOR
+---------- -------------------- --------------------
+       101 DBMS                 Harshad
+       103 OOP                  Tanmay
+       105 CGR                  Zakir
+       106 DSA                  Rohan
