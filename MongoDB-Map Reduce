@@ -1,0 +1,57 @@
+Microsoft Windows [Version 10.0.19045.6396]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Program Files\MongoDB\Server\8.2\bin>mongosh
+Current Mongosh Log ID: 68e88f4f69bb8e1a4ccebea3
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.8
+Using MongoDB:          8.2.0
+Using Mongosh:          2.5.8
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2025-10-09T14:09:34.306+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> show dbs
+admin         48.00 KiB
+bank          64.00 KiB
+bankexample   96.00 KiB
+company       68.00 KiB
+config       308.00 KiB
+cricket       24.00 KiB
+demo         152.00 KiB
+local         76.00 KiB
+sarthak       40.00 KiB
+test> show dbs
+admin         48.00 KiB
+bank          64.00 KiB
+bankexample   96.00 KiB
+charlie      968.00 KiB
+company       68.00 KiB
+config       344.00 KiB
+cricket       24.00 KiB
+demo         152.00 KiB
+local         76.00 KiB
+sarthak       40.00 KiB
+test> use charlie
+switched to db charlie
+charlie> show collections
+test
+track_counts
+charlie> db.test.count()
+545
+charlie> var map = function(){emit(this.furnishingstatus, parseFloat(this.price))}
+
+charlie> var reduce = function(key, values){return Array.sum(values)}
+
+charlie> db.test.mapReduce(map, reduce, {out:"Total_price"})
+{ result: 'Total_price', ok: 1 }
+charlie> db.Total_price.find()
+[
+  { _id: 'unfurnished', value: 714462000 },
+  { _id: 'furnished', value: 769397440 },
+  { _id: 'semi-furnished', value: 1114008000 }
+]
+
