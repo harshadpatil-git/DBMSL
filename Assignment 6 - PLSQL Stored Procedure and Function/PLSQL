@@ -1,0 +1,39 @@
+DELIMITER //
+
+CREATE PROCEDURE proc_grade(IN marks INT, OUT class VARCHAR(20))
+BEGIN
+  IF marks <= 1500 AND marks >= 990 THEN
+    SET class = 'Distinction';
+  ELSEIF marks < 990 AND marks >= 900 THEN
+    SET class = 'First Class';
+  ELSEIF marks < 900 AND marks >= 825 THEN
+    SET class = 'Higher Second Class';
+  ELSEIF marks < 825 AND marks >= 750 THEN
+    SET class = 'Second Class';
+  ELSEIF marks < 750 AND marks >= 650 THEN
+    SET class = 'Passed';
+  ELSE
+    SET class = 'Fail';
+  END IF;
+END;
+//
+
+CREATE FUNCTION final_result3(R1 INT)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+  DECLARE fmarks INT;
+  DECLARE stud_name VARCHAR(20);
+
+  SELECT total_marks, name INTO fmarks, stud_name
+  FROM marks
+  WHERE roll_no = R1;
+
+  CALL proc_grade(fmarks, @grade);
+  INSERT INTO result VALUES(R1, stud_name, @grade);
+
+  RETURN R1;
+END;
+//
+
+DELIMITER ;
