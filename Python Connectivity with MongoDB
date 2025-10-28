@@ -1,0 +1,22 @@
+pip install pymongo
+
+from pymongo import MongoClient
+client = MongoClient("mongodb://localhost:27017/")
+db_in = input("Enter Database name:")
+db = client[db_in]
+collection_in = input("Enter Collection name:")
+collection = db[collection_in]
+Rollno = int(input("Enter Roll No:"))
+name = input("Enter Name:")
+marks = int(input("Enter Marks:"))
+data = [
+    {"Rollno":12, "Name": "Tanmay", "Marks": 88},
+    {"Rollno":13, "Name": "Zakir", "Marks": 68},
+    {"Rollno":14, "Name": "Rohan", "Marks": 78},
+]
+result = collection.insert_many(data)
+data = {'Rollno':Rollno,'Name':name, 'Marks':marks}
+collection.insert_one(data)
+
+
+
