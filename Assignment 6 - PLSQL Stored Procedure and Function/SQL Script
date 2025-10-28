@@ -1,0 +1,43 @@
+use abhi;
+
+create table marks(
+  roll_no int,
+  name varchar(20),
+  total_marks int
+);
+
+create table result(
+  roll_no int,
+  name varchar(20),
+  class varchar(20)
+);
+
+insert into marks values(1,'abhi',1400);
+insert into marks values(2,'piyush',980);
+insert into marks values(3,'hitesh',880);
+insert into marks values(4,'ashley',820);
+insert into marks values(5,'partik',740);
+insert into marks values(6,'patil',640);
+
+@"C:\Users\Harshad\Desktop\New folder (4)\proc_func.sql";
+
+SELECT final_result3(1);
+SELECT final_result3(2);
+SELECT final_result3(3);
+SELECT final_result3(4);
+SELECT final_result3(5);
+SELECT final_result3(6);
+
+SELECT * FROM result;
++---------+--------+----------------------+
+| roll_no | name   | class                |
++---------+--------+----------------------+
+| 1       | Abhi   | Distinction          |
+| 2       | Piyush | First Class          |
+| 3       | Hitesh | Higher Second Class  |
+| 4       | Ashley | Second Class         |
+| 5       | Partik | Passed               |
+| 6       | Patil  | Fail                 |
++---------+--------+----------------------+
+6 rows in set (0.00 sec)
+ 
